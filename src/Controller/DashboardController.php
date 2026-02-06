@@ -13,11 +13,50 @@ class DashboardController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function home(): Response
     {
-        // Redirect to dashboard
-        return $this->redirectToRoute('dashboard_crm');
+        // Redirect based on authentication and role
+        if ($this->getUser()) {
+            if (in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+                return $this->redirectToRoute('dashboard_admin');
+            }
+            return $this->redirectToRoute('dashboard_user');
+        }
+        
+        return $this->redirectToRoute('app_login');
     }
 
-    #[Route('/dashboard', name: 'dashboard_crm')]
+    #[Route('/admin/dashboard', name: 'dashboard_admin')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function adminDashboard(): Response
+    {
+        // Mock data - replace with real data from your repositories
+        $stats = [
+            'invoices_awaiting' => ['current' => 45, 'total' => 76, 'amount' => 5569, 'percentage' => 56],
+            'converted_leads' => ['current' => 48, 'total' => 86, 'completed' => 52, 'percentage' => 63],
+            'projects_progress' => ['current' => 16, 'total' => 20, 'percentage' => 78],
+            'conversion_rate' => ['rate' => 46.59, 'amount' => 2254, 'percentage' => 46],
+        ];
+
+        $notifications = $this->getMockNotifications();
+
+        return $this->render('dashboard/admin.html.twig', [
+            'stats' => $stats,
+            'notifications' => $notifications,
+        ]);
+    }
+
+    #[Route('/dashboard', name: 'dashboard_user')]
+    #[IsGranted('ROLE_USER')]
+    public function userDashboard(): Response
+    {
+        $user = $this->getUser();
+        
+        return $this->render('dashboard/user.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    // Keep old route for backwards compatibility
+    #[Route('/dashboard/crm', name: 'dashboard_crm')]
     public function index(): Response
     {
         // Mock data - replace with real data from your repositories

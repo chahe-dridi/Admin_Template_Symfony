@@ -20,12 +20,17 @@
                         <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                     </a>
                     <ul class="nxl-submenu">
-                        <li class="nxl-item"><a class="nxl-link" href="{{ path('dashboard_crm') }}">CRM</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nxl-item"><a class="nxl-link" href="{{ path('dashboard_admin') }}">Admin Dashboard</a></li>
                         <li class="nxl-item"><a class="nxl-link" href="{{ path('dashboard_analytics') }}">Analytics</a></li>
+                        {% else %}
+                        <li class="nxl-item"><a class="nxl-link" href="{{ path('dashboard_user') }}">My Dashboard</a></li>
+                        {% endif %}
                     </ul>
                 </li>
                 
-                <!-- Reports -->
+                {% if is_granted('ROLE_ADMIN') %}
+                <!-- Reports (Admin Only) -->
                 <li class="nxl-item nxl-hasmenu">
                     <a href="javascript:void(0);" class="nxl-link">
                         <span class="nxl-micon"><i class="feather-cast"></i></span>
@@ -33,14 +38,14 @@
                         <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                     </a>
                     <ul class="nxl-submenu">
-                        <li class="nxl-item"><a class="nxl-link" href=" ">Sales Report</a></li>
-                        <li class="nxl-item"><a class="nxl-link" href=" ">Leads Report</a></li>
-                        <li class="nxl-item"><a class="nxl-link" href=" ">Project Report</a></li>
-                        <li class="nxl-item"><a class="nxl-link" href=" ">Timesheets Report</a></li>
+                        <li class="nxl-item"><a class="nxl-link" href="#">Sales Report</a></li>
+                        <li class="nxl-item"><a class="nxl-link" href="#">Leads Report</a></li>
+                        <li class="nxl-item"><a class="nxl-link" href="#">Project Report</a></li>
+                        <li class="nxl-item"><a class="nxl-link" href="#">Timesheets Report</a></li>
                     </ul>
                 </li>
                 
-                <!-- Customers -->
+                <!-- Customers (Admin Only) -->
                 <li class="nxl-item nxl-hasmenu">
                     <a href="javascript:void(0);" class="nxl-link">
                         <span class="nxl-micon"><i class="feather-users"></i></span>
@@ -48,12 +53,12 @@
                         <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                     </a>
                     <ul class="nxl-submenu">
-                        <li class="nxl-item"><a class="nxl-link" href=" ">Customers</a></li>
-                        <li class="nxl-item"><a class="nxl-link" href=" ">Create Customer</a></li>
+                        <li class="nxl-item"><a class="nxl-link" href="#">Customers</a></li>
+                        <li class="nxl-item"><a class="nxl-link" href="#">Create Customer</a></li>
                     </ul>
                 </li>
                 
-                <!-- Leads -->
+                <!-- Leads (Admin Only) -->
                 <li class="nxl-item nxl-hasmenu">
                     <a href="javascript:void(0);" class="nxl-link">
                         <span class="nxl-micon"><i class="feather-alert-circle"></i></span>
@@ -61,12 +66,12 @@
                         <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                     </a>
                     <ul class="nxl-submenu">
-                        <li class="nxl-item"><a class="nxl-link" href=" ">Leads</a></li>
-                        <li class="nxl-item"><a class="nxl-link" href=" ">Create Lead</a></li>
+                        <li class="nxl-item"><a class="nxl-link" href="#">Leads</a></li>
+                        <li class="nxl-item"><a class="nxl-link" href="#">Create Lead</a></li>
                     </ul>
                 </li>
                 
-                <!-- Projects -->
+                <!-- Projects (Admin Only) -->
                 <li class="nxl-item nxl-hasmenu">
                     <a href="javascript:void(0);" class="nxl-link">
                         <span class="nxl-micon"><i class="feather-briefcase"></i></span>
@@ -74,13 +79,12 @@
                         <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                     </a>
                     <ul class="nxl-submenu">
-                        <li class="nxl-item"><a class="nxl-link" href=" ">Projects</a></li>
-                        <li class="nxl-item"><a class="nxl-link" href=" ">Create Project</a></li>
+                        <li class="nxl-item"><a class="nxl-link" href="#">Projects</a></li>
+                        <li class="nxl-item"><a class="nxl-link" href="#">Create Project</a></li>
                     </ul>
                 </li>
                 
                 <!-- Settings (Admin Only) -->
-                
                 <li class="nxl-item nxl-hasmenu">
                     <a href="javascript:void(0);" class="nxl-link">
                         <span class="nxl-micon"><i class="feather-settings"></i></span>
@@ -88,10 +92,26 @@
                         <span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
                     </a>
                     <ul class="nxl-submenu">
-                        <li class="nxl-item"><a class="nxl-link" href=" ">General</a></li>
-                        <li class="nxl-item"><a class="nxl-link" href=" ">Users</a></li>
+                        <li class="nxl-item"><a class="nxl-link" href="#">General</a></li>
+                        <li class="nxl-item"><a class="nxl-link" href="#">Users</a></li>
                     </ul>
                 </li>
+                {% else %}
+                <!-- User Menu Items -->
+                <li class="nxl-item">
+                    <a href="#" class="nxl-link">
+                        <span class="nxl-micon"><i class="feather-user"></i></span>
+                        <span class="nxl-mtext">My Profile</span>
+                    </a>
+                </li>
+                
+                <li class="nxl-item">
+                    <a href="#" class="nxl-link">
+                        <span class="nxl-micon"><i class="feather-settings"></i></span>
+                        <span class="nxl-mtext">Settings</span>
+                    </a>
+                </li>
+                {% endif %}
                
             </ul>
         </div>

@@ -67,7 +67,7 @@
                 <div class="dropdown nxl-h-item">
                     <a class="nxl-head-link me-3" data-bs-toggle="dropdown" href="#" role="button">
                         <i class="feather-bell"></i>
-                        <span class="badge bg-danger nxl-h-badge">{{ notifications|length }}</span>
+                        <span class="badge bg-danger nxl-h-badge"> </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end nxl-h-dropdown nxl-notifications-menu">
                         <div class="d-flex justify-content-between align-items-center notifications-head">
@@ -77,22 +77,22 @@
                                 <span>Make as Read</span>
                             </a>
                         </div>
-                        {% for notification in notifications|slice(0, 5) %}
+                        
                         <div class="notifications-item">
-                            <img src="{{ asset('images/avatar/' ~ notification.userAvatar) }}" alt="" class="rounded me-3 border" />
+                            <img src=" " alt="" class="rounded me-3 border" />
                             <div class="notifications-desc">
                                 <a href=" ">
-                                    <span class="fw-semibold text-dark">{{ notification.userName }}</span> 
-                                    {{ notification.message }}
+                                    <span class="fw-semibold text-dark"> </span> 
+                                  
                                 </a>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="notifications-date text-muted border-bottom border-bottom-dashed">
-                                        {{ notification.createdAt|date('d/m/Y H:i') }}
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {% endfor %}
+                       
                         <div class="text-center notifications-footer">
                             <a href=" " class="fs-13 fw-semibold text-dark">All Notifications</a>
                         </div>
@@ -102,38 +102,40 @@
                 <!-- User Profile -->
                 <div class="dropdown nxl-h-item">
                     <a href="javascript:void(0);" data-bs-toggle="dropdown" role="button">
-                        <img src="{{ asset('images/avatar/' ~ app.user.avatar|default('1.png')) }}" 
-                             alt=" " 
+                        <img src="{{ asset('images/avatar/1.png') }}" 
+                             alt="User Avatar" 
                              class="img-fluid user-avtar me-0" />
                     </a>
                     <div class="dropdown-menu dropdown-menu-end nxl-h-dropdown nxl-user-dropdown">
                         <div class="dropdown-header">
                             <div class="d-flex align-items-center">
-                                <img src="{{ asset('images/avatar/' ~ app.user.avatar|default('1.png')) }}" 
-                                     alt=" " 
+                                <img src="{{ asset('images/avatar/1.png') }}" 
+                                     alt="User Avatar" 
                                      class="img-fluid user-avtar" />
                                 <div>
                                     <h6 class="text-dark mb-0">
-                                        
+                                        {{ app.user.email }}
                                         {% if is_granted('ROLE_ADMIN') %}
                                         <span class="badge bg-soft-success text-success ms-1">ADMIN</span>
+                                        {% else %}
+                                        <span class="badge bg-soft-primary text-primary ms-1">USER</span>
                                         {% endif %}
                                     </h6>
-                                    <span class="fs-12 fw-medium text-muted"> </span>
+                                    <span class="fs-12 fw-medium text-muted">{{ app.user.email }}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="dropdown-divider"></div>
-                        <a href=" " class="dropdown-item">
+                        <a href="#" class="dropdown-item">
                             <i class="feather-user"></i>
                             <span>Profile Details</span>
                         </a>
-                        <a href=" " class="dropdown-item">
+                        <a href="#" class="dropdown-item">
                             <i class="feather-settings"></i>
                             <span>Account Settings</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href=" " class="dropdown-item">
+                        <a href="{{ path('app_logout') }}" class="dropdown-item">
                             <i class="feather-log-out"></i>
                             <span>Logout</span>
                         </a>
