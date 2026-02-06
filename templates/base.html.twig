@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{% block meta_description %}{% endblock %}" />
+    <meta name="author" content="flexilecode" />
+    
+    <title>{% block title %}Duralux{% endblock %} || Dashboard</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
+    
+    {% block stylesheets %}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendors/css/vendors.min.css') }}" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/theme.min.css') }}" />
+    {% endblock %}
+</head>
+
+<body>
+    <!-- Navigation Menu -->
+    {% include 'partials/_navigation.html.twig' %}
+    
+    <!-- Header -->
+    {% include 'partials/_header.html.twig' %}
+    
+    <!-- Main Content -->
+    <main class="nxl-container">
+        <div class="nxl-content">
+            {% block body %}{% endblock %}
+        </div>
+        
+        <!-- Footer -->
+        {% include 'partials/_footer.html.twig' %}
+    </main>
+    
+    <!-- Theme Customizer (optional) -->
+    {% if is_granted('ROLE_ADMIN') %}
+        {% include 'partials/_theme_customizer.html.twig' %}
+    {% endif %}
+    
+    {% block javascripts %}
+    <!-- Vendors JS -->
+    <script src="{{ asset('vendors/js/vendors.min.js') }}"></script>
+    <!-- Common Init -->
+    <script src="{{ asset('js/common-init.min.js') }}"></script>
+    <!-- Theme Customizer -->
+    <script src="{{ asset('js/theme-customizer-init.min.js') }}"></script>
+    {% endblock %}
+</body>
+</html>
